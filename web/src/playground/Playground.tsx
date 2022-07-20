@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { GameState, initialState, Key, screenState, tick } from "../game";
 import { GAME_OVER_SCREEN_STATE } from "./gameover";
 
-const DELAY = 50;
+const DELAY = 400;
 
 function Playground() {
   const [lastKeyPressed, setLastKeyPressed] = useState(Key.Right);
