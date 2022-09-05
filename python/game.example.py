@@ -34,15 +34,14 @@ def tick(current_game_state: GameState, last_key_pressed: Key) -> GameState:
     Produces the game state for the next tick.
     Should raise `GameOver()` when the game is over.
     """
-    match last_key_pressed:
-        case Key.UP:
-            current_game_state.y -= 1
-        case Key.DOWN:
-            current_game_state.y += 1
-        case Key.LEFT:
-            current_game_state.x -= 1
-        case Key.RIGHT:
-            current_game_state.x += 1
+    if last_key_pressed == Key.UP:
+        current_game_state.y -= 1
+    elif last_key_pressed == Key.DOWN:
+        current_game_state.y += 1
+    elif last_key_pressed == Key.LEFT:
+        current_game_state.x -= 1
+    elif last_key_pressed == Key.RIGHT:
+        current_game_state.x += 1
     
     return current_game_state
 

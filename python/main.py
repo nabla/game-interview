@@ -23,16 +23,14 @@ def run():
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     running = False
-                else:
-                    match event.key:
-                        case pygame.K_LEFT:
-                            last_key_pressed = Key.LEFT
-                        case pygame.K_RIGHT:
-                            last_key_pressed = Key.RIGHT
-                        case pygame.K_UP:
-                            last_key_pressed = Key.UP
-                        case pygame.K_DOWN:
-                            last_key_pressed = Key.DOWN
+                elif event.key == K_LEFT:
+                    last_key_pressed = Key.LEFT
+                elif event.key == K_RIGHT:
+                    last_key_pressed = Key.RIGHT
+                elif event.key == K_UP:
+                    last_key_pressed = Key.UP
+                elif event.key == K_DOWN:
+                    last_key_pressed = Key.DOWN
             elif event.type == QUIT:
                 running = False
         
