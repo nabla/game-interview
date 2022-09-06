@@ -31,7 +31,9 @@ function Playground() {
 
   useInterval(DELAY, () => {
     if (currentGameState == "GameOver") return;
-    setCurrentGameState(tick(currentGameState, lastKeyPressed));
+    const newGameState = tick(currentGameState, lastKeyPressed);
+    // Re-render even if the `tick` mutated the current state instead of returning a new one.
+    setCurrentGameState(newGameState === "GameOver" ? newGameState : {...newGameState});
   });
 
   return (
