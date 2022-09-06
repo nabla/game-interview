@@ -32,11 +32,8 @@ export function tick(
   return {};
 }
 
-/** Determines the color of each pixel on the screen. */
-export function screenState(currentState: GameState): Array<Color> {
-  return Array.from({ length: WIDTH * HEIGHT }, (_, index) => {
-    const x = index % WIDTH;
-    const y = Math.floor(index / HEIGHT);
-    return Color.Black;
-  });
-}
+/** Colors each pixel on the screen depending on the game state. */
+export function draw(
+  currentState: GameState,
+  setColor: (x: number, y: number, color: Color) => void,
+) {}

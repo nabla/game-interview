@@ -1,7 +1,7 @@
 import logo from "./nabla.svg";
 import "./Playground.css";
 import { useEffect, useState } from "react";
-import { GameState, initialState, Key, screenState, tick } from "../game";
+import { Color, GameState, HEIGHT, initialState, Key, draw, tick, WIDTH } from "../game";
 import { GAME_OVER_SCREEN_STATE } from "./gameover";
 
 const DELAY = 50;
@@ -36,14 +36,21 @@ function Playground() {
     setCurrentGameState(newGameState === "GameOver" ? newGameState : {...newGameState});
   });
 
+  let pixels: Color[];
+  if (currentGameState == "GameOver") {
+    pixels = GAME_OVER_SCREEN_STATE;
+  } else {
+    pixels = Array(WIDTH * HEIGHT).fill(Color.Black);
+    draw(currentGameState, (x, y, color) => {
+      pixels[(x % WIDTH) + (y * WIDTH)] = color;
+    });
+  }
+
   return (
     <div className="App" tabIndex={0} onKeyDown={(e) => onKeyDown(e.key)}>
       <img src={logo} className="Logo" alt="Nabla" />
       <div className="Game">
-        {(currentGameState == "GameOver"
-          ? GAME_OVER_SCREEN_STATE
-          : screenState(currentGameState)
-        ).map((color, i) => (
+        {pixels.map((color, i) => (
           <div key={i} style={{ backgroundColor: color }} />
         ))}
       </div>
