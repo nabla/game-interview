@@ -39,3 +39,7 @@ def draw(game_state: GameState, set_color: Callable[[int, int, Color], Any]):
     Example: set_color(x, y, Color.RED)
     """
     pass
+
+if __name__ == "__main__":
+    from main import run
+    run()
