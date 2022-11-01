@@ -1,8 +1,9 @@
 import pygame
+from typing import *
 from pygame.locals import *
 from game import WIDTH, HEIGHT, Key, GameState, tick, draw
 
-FPS = 10
+FPS = 60
 ZOOM = 15
 
 def run():
@@ -13,31 +14,34 @@ def run():
     clock = pygame.time.Clock()
     
     running = True
+    fps_boost = False
     game_state = GameState()
-    last_key_pressed = Key.RIGHT
-    
+
     while running:
-        clock.tick(FPS)
+        clock.tick(FPS * (5 if fps_boost else 1))
+        key_pressed: Optional[Key] = None
 
         for event in pygame.event.get():
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     running = False
                 elif event.key == K_LEFT:
-                    last_key_pressed = Key.LEFT
+                    key_pressed = Key.LEFT
                 elif event.key == K_RIGHT:
-                    last_key_pressed = Key.RIGHT
-                elif event.key == K_UP:
-                    last_key_pressed = Key.UP
+                    key_pressed = Key.RIGHT
+                elif event.key == K_SPACE:
+                    key_pressed = Key.SPACE
                 elif event.key == K_DOWN:
-                    last_key_pressed = Key.DOWN
+                    fps_boost = True
+            elif event.type == KEYUP and event.key == K_DOWN:
+                fps_boost = False
             elif event.type == QUIT:
                 running = False
         
         surface = pygame.Surface((WIDTH, HEIGHT))
         surface.fill((0, 0, 0))
 
-        game_state = tick(game_state, last_key_pressed)
+        game_state = tick(game_state, key_pressed)
         draw(game_state, lambda x, y, color: surface.set_at((x, y), color.value))
 
         pygame.transform.scale(surface, (WIDTH * ZOOM, HEIGHT * ZOOM), screen)
