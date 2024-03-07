@@ -46,8 +46,13 @@ function Playground() {
     });
   }
 
+  useEffect(() => {
+    const gameZone = document.getElementById("game-zone");
+    gameZone?.focus();
+  }, []);
+
   return (
-    <div className="App" tabIndex={0} onKeyDown={(e) => onKeyDown(e.key)}>
+    <div className="App" tabIndex={0} onKeyDown={(e) => onKeyDown(e.key)} id="game-zone">
       <img src={logo} className="Logo" alt="Nabla" />
       <div className="Game">
         {pixels.map((color, i) => (
